@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/crime_view_pager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         >
+
+    </android.support.v4.view.ViewPager>
+
+    <Button
+        android:id="@+id/jump_to_last"
+        android:layout_weight="1"
+        android:textAllCaps="false"
+        android:text="Jump to Last"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="32dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp" />
+
+    <Button
+        android:id="@+id/jump_to_first"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_weight="1"
+        android:text="Jump to First"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="32dp" />
+
+</android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+
+
+

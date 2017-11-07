@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/crime_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/no_crime_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="没有crime记录可以显示"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        style="?android:listSeparatorTextViewStyle"/>
+    <Button
+        android:id="@+id/no_crime_add_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加一条crime记录"
+        android:layout_below="@+id/no_crime_textview"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+</RelativeLayout>
