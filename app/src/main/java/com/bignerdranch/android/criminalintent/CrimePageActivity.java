@@ -80,4 +80,10 @@ public class CrimePageActivity extends AppCompatActivity implements CrimeFragmen
     @Override
     public void onCrimeUpdated(Crime crime) {
     }
+    @Override
+    public void onCrimeDeleted(Crime crime) {
+    }
+    @Override
+    public void onCrimeAllDeleted(Crime crime) {
+    }
 }

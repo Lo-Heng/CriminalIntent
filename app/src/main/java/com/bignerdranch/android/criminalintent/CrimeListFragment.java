@@ -59,6 +59,10 @@ public class CrimeListFragment extends Fragment{
     //配置视图
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+
+
+
+
         View view = inflater.inflate(R.layout.fragment_crime_list,container,false);
 
         mCrimeRecyclerView = (RecyclerView)view.findViewById(R.id.crime_recycler_view);
@@ -111,6 +115,14 @@ public class CrimeListFragment extends Fragment{
             subtitleItem.setTitle(R.string.show_subtitle);
         }
     }
+//    @Override
+//    public void onDownOrMove(SlidingButtonView slidingButtonView) {
+//        if (menuIsOpen()) {
+//            if (mMenu != slidingButtonView) {
+//                closeMenu();
+//            }
+//        }
+//    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){

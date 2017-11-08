@@ -78,6 +78,8 @@ public class CrimeFragment extends Fragment {
 
     public interface Callbacks {
         void onCrimeUpdated(Crime crime);
+        void onCrimeDeleted(Crime crime);
+        void onCrimeAllDeleted(Crime crime);
     }
 
     public static CrimeFragment newInstance(UUID crimeId){
@@ -129,10 +131,15 @@ public class CrimeFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_crime:
-
                 CrimeLab.get(getActivity()).deleteCrime(mCrime);
-                getActivity().finish();
-
+                if (CrimeLab.get(getActivity()).getCrimes().isEmpty()) {
+                    mCallbacks.onCrimeAllDeleted(mCrime);
+                } else {
+                    mCrime = CrimeLab.get(getActivity()).getCrimes().get(0);
+                    mCallbacks.onCrimeDeleted(mCrime); // 这里相当于选中第一个
+                    updateCrime(); // 这里面升级了数据层并且更新了列表
+                }
+//                getActivity().finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -351,6 +358,11 @@ public class CrimeFragment extends Fragment {
     private void updateCrime() {
         CrimeLab.get(getActivity()).updateCrime(mCrime);
         mCallbacks.onCrimeUpdated(mCrime);
+    }
+    private void deleteCrime() {
+    }
+
+    public void onCrimeAllDeleted(Crime crime) {
     }
     private void updateDate() {
         mDateButton.setText(mCrime.getDate().toString());
