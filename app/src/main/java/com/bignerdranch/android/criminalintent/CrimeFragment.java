@@ -139,6 +139,9 @@ public class CrimeFragment extends Fragment {
                     mCallbacks.onCrimeDeleted(mCrime); // 这里相当于选中第一个
                     updateCrime(); // 这里面升级了数据层并且更新了列表
                 }
+                if (getActivity().findViewById(R.id.detail_fragment_container) == null) {
+                    getActivity().finish();
+                }
 //                getActivity().finish();
                 return true;
             default:

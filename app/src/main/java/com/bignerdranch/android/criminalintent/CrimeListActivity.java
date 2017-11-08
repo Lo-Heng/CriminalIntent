@@ -41,6 +41,8 @@ public class CrimeListActivity extends SingleFragmentActivity implements CrimeLi
     public void onCrimeDeleted(Crime crime) {
         // 如果只是删除了一个，而还有其他的 Crime 的话，
         // 就相当于选中一个 Crime，这里传过来的应该是第一个 Crime
+
+
         onCrimeSelected(crime);
     }
 
@@ -58,5 +60,9 @@ public class CrimeListActivity extends SingleFragmentActivity implements CrimeLi
         }
         // 并且更新列表页
         onCrimeUpdated(crime);
+        if (findViewById(R.id.detail_fragment_container) == null) {
+            this.finish();
+        }
+
     }
 }

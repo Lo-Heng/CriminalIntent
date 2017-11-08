@@ -49,10 +49,13 @@ public class CrimeListFragment extends Fragment{
         void onItemMove(int fromPosition,int toPosition);
         //数据删除
         void onItemDissmiss(int position);
+
     }
 
     public interface Callbacks {
         void onCrimeSelected(Crime crime);
+        void onCrimeDeleted(Crime crime);
+        void onCrimeAllDeleted(Crime crime);
     }
     @Override
     public void onAttach(Context context) {
@@ -68,9 +71,6 @@ public class CrimeListFragment extends Fragment{
     //配置视图
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
-
-
-
 
         View view = inflater.inflate(R.layout.fragment_crime_list,container,false);
 
@@ -269,9 +269,20 @@ public class CrimeListFragment extends Fragment{
 
         @Override
         public void onItemDissmiss(int position) {
-            //移除数据
+            Crime crime = mCrimes.get(position);
             mCrimes.remove(position);
+
             notifyItemRemoved(position);
+            //移除数据
+            CrimeLab.get(getActivity()).deleteCrime(crime);
+            if (CrimeLab.get(getActivity()).getCrimes().isEmpty()) {
+                mCallbacks.onCrimeAllDeleted(crime);
+            } else {
+                crime = CrimeLab.get(getActivity()).getCrimes().get(0);
+                mCallbacks.onCrimeDeleted(crime); // 这里相当于选中第一个
+//                updateCrime(); // 这里面升级了数据层并且更新了列表
+            }
+
         }
 
 
