@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,6 +43,13 @@ public class CrimeListFragment extends Fragment{
     private Button mNoCrimeButton;
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
 
+
+   public interface ItemTouchHelperAdapter {
+        //数据交换
+        void onItemMove(int fromPosition,int toPosition);
+        //数据删除
+        void onItemDissmiss(int position);
+    }
 
     public interface Callbacks {
         void onCrimeSelected(Crime crime);
@@ -67,6 +76,7 @@ public class CrimeListFragment extends Fragment{
 
         mCrimeRecyclerView = (RecyclerView)view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
         mNoCrimeTextView = (TextView) view.findViewById(R.id.no_crime_textview);
         mNoCrimeButton = (Button)view.findViewById(R.id.no_crime_add_button);
@@ -171,7 +181,17 @@ public class CrimeListFragment extends Fragment{
             mNoCrimeButton.setVisibility(View.VISIBLE);
         }
         if(mAdapter == null) {
+            /****test****/
             mAdapter = new CrimeAdapter(crimes);
+            //先实例化Callback
+            ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(mAdapter);
+            //用Callback构造ItemtouchHelper
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+            //调用ItemTouchHelper的attachToRecyclerView方法建立联系
+            touchHelper.attachToRecyclerView(mCrimeRecyclerView);
+
+            /****test end ****/
+//            mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         }
         else{
@@ -212,7 +232,7 @@ public class CrimeListFragment extends Fragment{
 //            startActivity(intent);
         }
     }
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
+    public class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> implements ItemTouchHelperAdapter{
         private List<Crime> mCrimes;
 
         private CrimeAdapter(List<Crime> crimes){
@@ -241,6 +261,19 @@ public class CrimeListFragment extends Fragment{
         public void setCrimes(List<Crime> crimes){
             mCrimes = crimes;
         }
+        public void onItemMove(int fromPosition, int toPosition) {
+            //交换位置
+            Collections.swap(mCrimes,fromPosition,toPosition);
+            notifyItemMoved(fromPosition,toPosition);
+        }
+
+        @Override
+        public void onItemDissmiss(int position) {
+            //移除数据
+            mCrimes.remove(position);
+            notifyItemRemoved(position);
+        }
+
 
     }
 
